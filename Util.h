@@ -142,20 +142,41 @@ namespace Util {
     }
 
 
-    std::vector<std::string> split(const std::string &s, char delim) {
-        std::vector<std::string> elems;
-        split(s, delim, std::back_inserter(elems));
-        return elems;
-    }
+	std::vector<std::string> split(const std::string &s, char delim) {
+		std::vector<std::string> elems;
+		split(s, delim, std::back_inserter(elems));
+		return elems;
+	}
 
-    template< typename T >
-    struct array_deleter
-    {
-      void operator ()( T const * p)
-      { 
-        delete[] p; 
-      }
-    };
+	template< typename T >
+	struct array_deleter
+	{
+		void operator ()( T const * p)
+		{ 
+			delete[] p; 
+		}
+	};
+
+	template <typename A, typename B>
+	struct same_class {
+		const static bool value = false;
+	};
+
+	template <typename A>
+	struct same_class<A, A> {
+		const static bool value = true;
+	};
+
+	template <typename A, typename B, int value>
+	struct if_true {
+		using type = A;
+	};
+
+	template <typename A, typename B>
+	struct if_true<A, B, false> {
+		using type = B;
+	};
 }
+
 
 #endif // UTIL_H_INCLUDED
