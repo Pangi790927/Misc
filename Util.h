@@ -20,6 +20,50 @@
 #endif
 
 namespace Util {
+
+	template <typename Type, int MAX_SIZE = 100>
+	class StaticQueue {
+	public:
+		Type cont[MAX_SIZE];
+		int start = 0;
+		int end = 0;
+		int size = 0;
+
+		void insert (const Type& arg) {
+			if (size < MAX_SIZE) {
+				cont[start] = arg;
+				start++;
+				if (start >= MAX_SIZE)
+					start = 0;
+				size++;
+			}
+			else {
+				cont[start] = arg;
+				start++;
+				end++;
+				if (end >= MAX_SIZE)
+					end = 0;
+				if (start >= MAX_SIZE)
+					start = 0;
+			}
+		}
+
+		Type pop() {
+			if (size > 0) {
+				int toRet = end;
+				size--;
+				end++;
+				if (end >= MAX_SIZE)
+					end = 0;
+				return cont[toRet];
+			}
+		}
+
+		bool empty() {
+			return size == 0;
+		}
+	};
+
     //Text not by const reference
     //so that the function can be used with a character array as argument
     template <typename Type>
