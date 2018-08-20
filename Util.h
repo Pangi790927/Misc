@@ -67,7 +67,7 @@ namespace Util {
     //Text not by const reference
     //so that the function can be used with a character array as argument
     template <typename Type>
-    Type stringToNumber ( const std::string &Text )
+    inline Type stringToNumber ( const std::string &Text )
     {
         std::stringstream ss(Text);
         Type result;
@@ -75,7 +75,7 @@ namespace Util {
     }
 
     template <typename Type>
-    std::string numberToString ( Type Number )
+    inline std::string numberToString ( Type Number )
     {
         std::stringstream ss;
         ss << Number;
@@ -83,22 +83,22 @@ namespace Util {
     }
 
     template <typename Type, typename... Args>
-    bool eq (Type a, Type b, Args... args) {
+    inline bool eq (Type a, Type b, Args... args) {
         return a == b && eq(args...);
     }
 
     template <typename Type>
-    bool eq (Type a, Type b, Type c) {
+    inline bool eq (Type a, Type b, Type c) {
         return a == b && b == c;
     }
 
     template <typename Type>
-    bool eq (Type a, Type b) {
+    inline bool eq (Type a, Type b) {
         return a == b;
     }
 
     template <typename Type>
-    bool isEqualToAny (Type val, const std::initializer_list<Type>& list) {
+    inline bool isEqualToAny (Type val, const std::initializer_list<Type>& list) {
         for (const auto& i : list) {
             if (val == i) {
                 return true;
@@ -107,13 +107,13 @@ namespace Util {
         return false;
     }
 
-    float PI = 3.141592653589;
+    static float PI = 3.141592653589;
 
-    float toRadians (float angle) {
+    inline float toRadians (float angle) {
         return angle * PI / 180.0f;
     }
 
-    std::string getOpenGLError() {
+    inline std::string getOpenGLError() {
         GLenum errCode;
         const unsigned char *errString = NULL;
         
@@ -127,7 +127,7 @@ namespace Util {
     }
 
     template <typename Out>
-    void split(const std::string &s, char delim, Out result) {
+    inline void split(const std::string &s, char delim, Out result) {
         std::stringstream ss;
         ss.str(s);
         std::string item;
@@ -142,7 +142,7 @@ namespace Util {
     }
 
 
-	std::vector<std::string> split(const std::string &s, char delim) {
+	inline std::vector<std::string> split(const std::string &s, char delim) {
 		std::vector<std::string> elems;
 		split(s, delim, std::back_inserter(elems));
 		return elems;
